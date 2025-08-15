@@ -19,14 +19,20 @@ public class BookController {
         return supabaseService.getAllBooks();
     }
 
+    @GetMapping("/{book_id}")
+    public String getBookById(@PathVariable Integer book_id) {
+        return supabaseService.getBookById(book_id.toString());
+    }
+
     @PostMapping
     public String addBook(@RequestBody Book book) {
         return supabaseService.addBook(book);
     }
 
     @PatchMapping("/{book_id}")
-    public String updateBook(@PathVariable Integer book_id, @RequestBody Map<String, Object> updates) {
-        return supabaseService.updateBook(book_id.toString(), updates);
+    public String updateBook(@PathVariable("book_id") String bookId,
+            @RequestBody Map<String, Object> updates) {
+        return supabaseService.updateBook(bookId, updates);
     }
 
     @DeleteMapping("/{book_id}")

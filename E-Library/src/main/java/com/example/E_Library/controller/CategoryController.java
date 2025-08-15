@@ -25,8 +25,9 @@ public class CategoryController {
     }
 
     @PatchMapping("/{category_id}")
-    public String updateCategory(@PathVariable Integer category_id, @RequestBody Map<String, Object> updates) {
-        return supabaseService.updateCategory(category_id.toString(), updates);
+    public String updateCategory(@PathVariable("category_id") String categoryId,
+            @RequestBody Map<String, Object> updates) {
+        return supabaseService.updateCategory(categoryId, updates);
     }
 
     @DeleteMapping("/{category_id}")
