@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ELibraryApplication<E-Library>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.E_Library.ELibraryApplication",
+            "projectName": "E-Library",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
