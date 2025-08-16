@@ -101,12 +101,12 @@ public class SupabaseService {
     // }
 
     public String updateBook(String id, Map<String, Object> updates) {
-        String url = projectUrl + "/rest/v1/books?on_conflict=book_id"; // upsert
-        updates.put("book_id", id); // ensure ID is included in payload
+        // Supabase needs the filter on book_id in the URL
+        String url = projectUrl + "/rest/v1/books?book_id=eq." + id;
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(updates, getHeaders());
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
             return response.getBody();
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,16 +166,17 @@ public class SupabaseService {
     // }
 
     public String updateCategory(String id, Map<String, Object> updates) {
-        String url = projectUrl + "/rest/v1/book_categories?on_conflict=category_id"; // upsert
-        updates.put("category_id", id); // include ID
+        String url = projectUrl + "/rest/v1/book_categories?category_id=eq." + id;
+
+        // Prevent accidental overwrite of category_id
+        updates.remove("category_id");
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(updates, getHeaders());
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
             return response.getBody();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error updating category: " + e.getMessage();
+        } catch (HttpClientErrorException e) {
+            return "Error updating category: " + e.getResponseBodyAsString();
         }
     }
 
@@ -189,4 +190,19 @@ public class SupabaseService {
             return "Error deleting category: " + e.getResponseBodyAsString();
         }
     }
+
+    // search
+    public String searchBooks(String query) {
+        // Search in title or author
+        String url = projectUrl + "/rest/v1/books?or=(title.ilike.*" + query + "*,author.ilike.*" + query + "*)";
+
+        HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            return "Error searching books: " + e.getResponseBodyAsString();
+        }
+    }
+
 }
