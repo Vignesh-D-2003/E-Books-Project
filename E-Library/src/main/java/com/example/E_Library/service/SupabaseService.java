@@ -2,6 +2,7 @@ package com.example.E_Library.service;
 
 import com.example.E_Library.model.Book;
 import com.example.E_Library.model.BookCategory;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,14 +13,26 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 
 @Service
 public class SupabaseService {
     private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     // public SupabaseService() {
     // this.restTemplate = new RestTemplate();
@@ -33,6 +46,9 @@ public class SupabaseService {
     @Value("${SECRET_KEY}")
     private String secretKey;
 
+    @Value("${app.download.path:${java.io.tmpdir}/downloads}")
+    private String downloadPath;
+    
     private HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -206,6 +222,68 @@ public class SupabaseService {
         } catch (HttpClientErrorException e) {
             return "Error searching books: " + e.getResponseBodyAsString();
         }
+    }
+
+    // ===== DOWNLOAD MULTIPLE BOOKS =====
+    public String downloadMultiple(List<String> bookIds) {
+        try {
+            Path downloadDir = Paths.get(downloadPath);
+            if (!Files.exists(downloadDir)) {
+                Files.createDirectories(downloadDir);
+            }
+            String zipFileName = "books_" + UUID.randomUUID().toString() + ".zip";
+            Path zipFilePath = downloadDir.resolve(zipFileName);
+            try (ZipOutputStream zipOut = new ZipOutputStream(Files.newOutputStream(zipFilePath))) {
+                for (String bookId : bookIds) {
+                    try {
+                        String bookResponse = getBookById(bookId);
+                        JsonNode bookArray = objectMapper.readTree(bookResponse);
+                        if (bookArray.isArray() && bookArray.size() > 0) {
+                            JsonNode book = bookArray.get(0);
+                            String fileUrl = book.get("file_url").asText();
+                            String title = book.get("title").asText();
+                            String author = book.get("author").asText();
+                            String fileName = sanitizeFileName(title + "_" + author + ".pdf");
+                            downloadAndAddToZip(fileUrl, fileName, zipOut);
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Error processing book ID " + bookId + ": " + e.getMessage());
+                    }
+                }
+            }
+            Map<String, String> response = new HashMap<>();
+            response.put("zipFilePath", zipFilePath.toString());
+            response.put("downloadUrl", "/downloads/" + zipFileName);
+            response.put("message", "Successfully created zip file with " + bookIds.size() + " books");
+            return objectMapper.writeValueAsString(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error creating zip file: " + e.getMessage();
+        }
+    }
+
+    private void downloadAndAddToZip(String fileUrl, String fileName, ZipOutputStream zipOut) throws IOException {
+        try {
+            URL url = new URL(fileUrl);
+            try (InputStream inputStream = url.openStream();
+                 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
+                ZipEntry zipEntry = new ZipEntry(fileName);
+                zipOut.putNextEntry(zipEntry);                
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = bufferedInputStream.read(buffer)) >= 0) {
+                    zipOut.write(buffer, 0, length);
+                }                
+                zipOut.closeEntry();
+            }
+        } catch (Exception e) {
+            System.err.println("Error downloading file from URL " + fileUrl + ": " + e.getMessage());
+            throw new IOException("Failed to download file: " + fileUrl, e);
+        }
+    }
+
+    private String sanitizeFileName(String fileName) {
+        return fileName.replaceAll("[^a-zA-Z0-9._-]", "_").substring(0, Math.min(fileName.length(), 100));
     }
 
 }
