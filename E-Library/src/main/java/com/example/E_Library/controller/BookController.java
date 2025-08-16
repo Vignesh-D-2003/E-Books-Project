@@ -29,10 +29,11 @@ public class BookController {
         return supabaseService.addBook(book);
     }
 
-    @PatchMapping("/{book_id}")
-    public String updateBook(@PathVariable("book_id") String bookId,
-            @RequestBody Map<String, Object> updates) {
-        return supabaseService.updateBook(bookId, updates);
+    @PutMapping("/update/{id}")
+    public String updateBook(@PathVariable String id, @RequestBody Map<String, Object> updates) {
+        // Supabase needs book_id in the body for PUT
+        updates.put("book_id", Long.parseLong(id));
+        return supabaseService.updateBook(id, updates);
     }
 
     @DeleteMapping("/{book_id}")
