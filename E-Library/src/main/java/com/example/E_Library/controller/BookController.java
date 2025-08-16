@@ -39,4 +39,10 @@ public class BookController {
     public String deleteBook(@PathVariable Integer book_id) {
         return supabaseService.deleteBook(book_id.toString());
     }
+
+    @GetMapping("/search")
+    public String searchBooks(@RequestParam("query") String query) {
+        return supabaseService.searchBooks(query);
+    }
+
 }

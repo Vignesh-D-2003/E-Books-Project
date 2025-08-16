@@ -189,4 +189,21 @@ public class SupabaseService {
             return "Error deleting category: " + e.getResponseBodyAsString();
         }
     }
+
+   //search
+  public String searchBooks(String query) {
+    // Search in title or author
+    String url = projectUrl + "/rest/v1/books?or=(title.ilike.*" + query + "*,author.ilike.*" + query + "*)";
+
+    HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+    try {
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        return response.getBody();
+    } catch (HttpClientErrorException e) {
+        return "Error searching books: " + e.getResponseBodyAsString();
+    }
 }
+
+}
+
+
