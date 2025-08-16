@@ -1,3 +1,4 @@
+'use client';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
@@ -6,10 +7,6 @@ import { useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "E-Library",
-  description: "An open source e-library",
-};
 
 export default function RootLayout({ children }) {
   const router = useRouter();
