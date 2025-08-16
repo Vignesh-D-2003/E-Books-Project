@@ -1,37 +1,43 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:8080/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const text = await response.text();
+      setMessage(text);
+    } catch (error) {
+      console.error("Login error:", error);
+      setMessage("Error connecting to server");
+    }
+  };
+
   return (
-    <div className="flex min-h-screen bg-gradient-to-r from-orange-50 via-pink-50 to-purple-50">
-      {/* LEFT FORM */}
-      <div className="flex-1 flex justify-center items-center">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle className="text-center">Welcome Back</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-center text-pink-600 mb-4">Login to your account</p>
-            <form className="flex flex-col gap-4">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="Email" />
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="Password" />
-              <Button type="submit" className="w-full mt-2">Login</Button>
-            </form>
-            <p className="text-center mt-4 text-sm">
-              Don't have an account?{' '}
-              <Link href="/signup" className="text-pink-500 hover:underline">Sign up</Link>
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-      {/* RIGHT IMAGE */}
-      <div className="flex-1 hidden md:flex bg-purple-100 items-center justify-center">
-        <img src="https://picsum.photos/800/900" alt="Books" className="w-full h-full object-cover rounded-xl" />
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", fontFamily: "Arial" }}>
+      <div style={{ padding: "40px", borderRadius: "10px", background: "#fff", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", width: "350px" }}>
+        <h1 style={{ color: "#ff5722", textAlign: "center" }}>Welcome Back</h1>
+        <form style={{ display: "flex", flexDirection: "column", gap: "15px" }} onSubmit={handleLogin}>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
+          <button type="submit" style={{ background: "#ff5722", color: "#fff", border: "none", padding: "10px", borderRadius: "5px", cursor: "pointer" }}>Login</button>
+        </form>
+        {message && <p style={{ textAlign: "center", marginTop: "15px", color: message.includes("successful") ? "green" : "red" }}>{message}</p>}
+        <p style={{ textAlign: "center", marginTop: "15px" }}>Don't have an account? <a href="/signup" style={{ color: "#ff5722" }}>Sign up</a></p>
       </div>
     </div>
   );
