@@ -1,19 +1,29 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export function Header() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [role, setRole] = useState("");
+  const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const { isAuthenticated, isAdmin, logout } = useAuth();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("authToken");
-      setIsAuthenticated(!!token);
-      const userRole = localStorage.getItem("userRole");
-      setRole(userRole || "");
-    }
+    setMounted(true);
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
+  };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <header className="bg-white shadow-sm">
@@ -22,12 +32,14 @@ export function Header() {
           E-Library
         </Link>
         <nav className="flex items-center space-x-4">
-          <Link href="/books">
-            <Button variant="ghost">All Books</Button>
-          </Link>
-          {isAuthenticated && role === "admin" && (
+          {isAuthenticated && (
+            <Link href="/books">
+              <Button variant="ghost">All Books</Button>
+            </Link>
+          )}
+          {isAuthenticated && isAdmin && (
             <Link href="/admin/dashboard">
-              <Button variant="ghost">Admin</Button>
+              <Button variant="ghost">Admin Dashboard</Button>
             </Link>
           )}
           {!isAuthenticated && (
@@ -41,11 +53,9 @@ export function Header() {
             </>
           )}
           {isAuthenticated && (
-            <Button variant="outline" onClick={() => {
-              localStorage.removeItem("authToken");
-              localStorage.removeItem("userRole");
-              window.location.href = "/login";
-            }}>Logout</Button>
+            <Button variant="outline" onClick={handleLogout}>
+              Logout
+            </Button>
           )}
         </nav>
       </div>

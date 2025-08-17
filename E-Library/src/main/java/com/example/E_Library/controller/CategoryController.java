@@ -5,6 +5,7 @@ import com.example.E_Library.service.SupabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 // Import the SLF4J Logger classes
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/categories")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class CategoryController {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);

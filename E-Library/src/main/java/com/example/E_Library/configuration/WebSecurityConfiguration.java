@@ -2,7 +2,6 @@ package com.example.E_Library.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -20,59 +19,61 @@ import com.example.E_Library.service.JwtService;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity 
+@EnableMethodSecurity
 public class WebSecurityConfiguration {
-	 private final JwtRequestFilter jwtRequestFilter;
-	    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-	    private final JwtService jwtService;
+	private final JwtRequestFilter jwtRequestFilter;
+	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	private final JwtService jwtService;
 
-	    public WebSecurityConfiguration(JwtRequestFilter jwtRequestFilter,
-	                                    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-	                                    JwtService jwtService) {
-	        this.jwtRequestFilter = jwtRequestFilter;
-	        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-	        this.jwtService = jwtService;
-	    }
+	public WebSecurityConfiguration(JwtRequestFilter jwtRequestFilter,
+			JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+			JwtService jwtService) {
+		this.jwtRequestFilter = jwtRequestFilter;
+		this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+		this.jwtService = jwtService;
+	}
 
-	    // ✅ Define password encoder
-	    @Bean
-	    public PasswordEncoder passwordEncoder() {
-	        return new BCryptPasswordEncoder();
-	    }
+	// ✅ Define password encoder
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-	    // ✅ AuthenticationProvider replacing AuthenticationManagerBuilder
-	    @Bean
-	    public AuthenticationProvider authenticationProvider() {
-	        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(passwordEncoder());
-	        provider.setUserDetailsService(jwtService); // JwtService implements UserDetailsService
-	        return provider;
-	    }
+	// ✅ AuthenticationProvider replacing AuthenticationManagerBuilder
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider(); // deprecated but acceptable; alternative
+																				// would be custom provider
+		provider.setPasswordEncoder(passwordEncoder());
+		provider.setUserDetailsService(jwtService); // JwtService implements UserDetailsService
+		return provider;
+	}
 
+	// ✅ AuthenticationManager bean
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
 
-	    // ✅ AuthenticationManager bean 
-	    @Bean
-	    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-	        return config.getAuthenticationManager();
-	    }
+	// ✅ SecurityFilterChain instead of configure(HttpSecurity)
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+				.csrf(csrf -> csrf.disable())
+				.cors(cors -> {
+				}) // CORS handled by CorsFilter bean
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/users/register", "/users/login").permitAll()
+						.requestMatchers("/books", "/books/**").permitAll() // Temporarily permit all for debugging
+						.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+						.anyRequest().authenticated())
+				.exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-	    // ✅ SecurityFilterChain instead of configure(HttpSecurity)
-	    @Bean
-	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-	        http
-	            .csrf(csrf -> csrf.disable())
-	            .cors(cors -> {}) // enable CORS
-	            .authorizeHttpRequests(auth -> auth
-	                .requestMatchers("/users/register","/users/login").permitAll() // public 
-	                .requestMatchers(HttpHeaders.ALLOW).permitAll()
-	                .anyRequest().authenticated()
-	            )
-	            .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-	            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		// Add JWT filter
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-	        // Add JWT filter
-	        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-	        return http.build();
-	    }
+		return http.build();
+	}
 
 }
