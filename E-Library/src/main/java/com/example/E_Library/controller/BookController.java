@@ -17,10 +17,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
+
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     @Autowired
     private SupabaseService supabaseService;
@@ -40,12 +44,14 @@ public class BookController {
                 ((ObjectNode) book).put("file_url", "http://localhost:8080" + fileUrl);
             }
         }
+        logger.debug("Successfully processed {} books.", books.size());
         return books.toString();
     }
 
     @GetMapping("/{book_id}")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String getBookById(@PathVariable Integer book_id) throws Exception {
+        logger.info("Request received to get book by ID: {}", book_id);
         String jsonResponse = supabaseService.getBookById(book_id.toString());
 
         ArrayNode books = (ArrayNode) objectMapper.readTree(jsonResponse);
@@ -56,8 +62,10 @@ public class BookController {
                 String fileUrl = book.get("file_url").asText();
                 book.put("file_url", "http://localhost:8080" + fileUrl);
             }
+            logger.debug("Book with ID {} found.", book_id);
             return book.toString();
         }
+        logger.warn("No book found for ID: {}", book_id);
         return "{}";
     }
 
@@ -87,19 +95,23 @@ public class BookController {
     public String addBook(
             @RequestPart("book") String bookJson,
             @RequestPart("pdf") MultipartFile pdfFile) {
+            logger.info("Request received to add a new book.");
 
         // Convert JSON string to Book object
         ObjectMapper mapper = new ObjectMapper();
         Book book;
         try {
             book = mapper.readValue(bookJson, Book.class);
+            logger.debug("Book JSON parsed successfully for title: {}", book.getTitle());
         } catch (IOException e) {
+            logger.error("Invalid book JSON received during add book request.", e);
             throw new RuntimeException("Invalid book JSON: " + e.getMessage());
         }
 
         // Save file and set file_url
         String filePath = savePdfToUploads(pdfFile);
         book.setFile_url(filePath);
+        logger.info("PDF file saved to path: {}", filePath);
 
         return supabaseService.addBook(book);
     }
@@ -107,6 +119,7 @@ public class BookController {
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public String updateBook(@PathVariable String id, @RequestBody Map<String, Object> updates) {
+        logger.info("Request received to update book with ID: {}", id);
         // Supabase needs book_id in the body for PUT
         updates.put("book_id", Long.parseLong(id));
         return supabaseService.updateBook(id, updates);
@@ -115,18 +128,22 @@ public class BookController {
     @DeleteMapping("/{book_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public String deleteBook(@PathVariable Integer book_id) {
+        logger.info("Request received to delete book with ID: {}", book_id);
         return supabaseService.deleteBook(book_id.toString());
     }
 
     @GetMapping("/search")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String searchBooks(@RequestParam("query") String query) {
+
+        logger.info("Request received to search books with query: '{}'", query);
         return supabaseService.searchBooks(query);
     }
 
     @PostMapping("/download-multiple")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String downloadMultiple(@RequestBody List<String> bookIds) {
+        logger.info("Request received to download multiple books. Count: {}", bookIds.size());
         return supabaseService.downloadMultiple(bookIds);
     }
 }
