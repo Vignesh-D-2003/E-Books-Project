@@ -29,6 +29,8 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Service
 public class SupabaseService {
@@ -57,7 +59,23 @@ public class SupabaseService {
         headers.set("Authorization", "Bearer " + secretKey);
         return headers;
     }
-    
+
+    public Integer getUserId() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new RuntimeException("No authenticated user found");
+        }
+
+        String username = auth.getName(); // logged-in username
+        User currentUser = fetchUserByUsername(username);
+
+        if (currentUser == null) {
+            throw new RuntimeException("User not found in Supabase: " + username);
+        }
+
+        return currentUser.getUser_id();
+    }
+
     //=====User Details for Jwt ====
     public User fetchUserByUsername(String username) {
         String url = projectUrl + "/rest/v1/users?username=eq." + username;
@@ -88,7 +106,7 @@ public class SupabaseService {
         }
     }
     //=====user by email for login ====
- // Fetch by email
+    // Fetch by email
     public User fetchUserByEmail(String email) {
         String url = projectUrl + "/rest/v1/users?email=eq." + email;
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
@@ -157,8 +175,12 @@ public class SupabaseService {
             payload.put("description", book.getDescription());
         if (book.getFile_url() != null)
             payload.put("file_url", book.getFile_url());
-        if (book.getUploaded_by() != null)
-            payload.put("uploaded_by", book.getUploaded_by());
+        // if (book.getUploaded_by() != null)
+        //     payload.put("uploaded_by", book.getUploaded_by());
+        // System.out.println("before--------------------------------------" +getUserId());
+        payload.put("uploaded_by", getUserId());
+        // System.out.println("after---------------------------------------" + getUserId());
+        
         if (book.getUploaded_at() != null)
             payload.put("uploaded_at", book.getUploaded_at());
         if (book.getCategory_id() != null)

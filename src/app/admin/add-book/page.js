@@ -13,7 +13,7 @@ export default function AddBookPage() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [coverUrl, setCoverUrl] = useState("");
+  // const [coverUrl, setCoverUrl] = useState("");
   const [pdfFile, setPdfFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,6 +25,8 @@ export default function AddBookPage() {
     const fetchCategories = async () => {
       try {
         const result = await categoryService.getAllCategories();
+        console.log(result);
+        
         if (result.success) {
           setCategories(result.data);
         }
@@ -52,7 +54,7 @@ export default function AddBookPage() {
         title,
         author,
         category_id: categoryId,
-        cover_url: coverUrl || null, // Make it optional
+        // cover_url: coverUrl || null, // Make it optional
       };
 
       const result = await bookService.addBook(bookData, pdfFile);
@@ -120,7 +122,7 @@ export default function AddBookPage() {
                 ))}
               </select>
             </div>
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="cover-image">Cover Image URL (optional)</Label>
               <Input
                 id="cover-image"
@@ -128,7 +130,7 @@ export default function AddBookPage() {
                 value={coverUrl}
                 onChange={(e) => setCoverUrl(e.target.value)}
               />
-            </div>
+            </div> */}
             <div className="space-y-2">
               <Label htmlFor="pdf-file">Book PDF *</Label>
               <Input

@@ -6,7 +6,7 @@ const categoryService = {
       const response = await api.get("/categories");
       return {
         success: true,
-        data: JSON.parse(response.data),
+        data: response.data,
       };
     } catch (error) {
       return {
