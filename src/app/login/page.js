@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import * as Sentry from "@sentry/nextjs"; //Import Sentry
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,10 +20,20 @@ export default function Login() {
         body: JSON.stringify({ email, password }),
       });
 
+      //If server returns an error code
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server error: ${errorText}`);
+      }
+
       const text = await response.text();
       setMessage(text);
     } catch (error) {
       console.error("Login error:", error);
+
+      //Send error to Sentry
+      Sentry.captureException(error);
+
       setMessage("Error connecting to server");
     }
   };

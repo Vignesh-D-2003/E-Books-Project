@@ -1,0 +1,5 @@
+git clone https://github.com/Vignesh-D-2003/E-Books-Project.git
+
+Open command propmt and run these in E:\\E-Books-Project folder:
+npm run dev
+http://localhost:3000

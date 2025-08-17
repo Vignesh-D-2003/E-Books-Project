@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import * as Sentry from "@sentry/nextjs";   //Import Sentry
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -9,11 +10,14 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false); // Track success/failure
+  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    //Sentry trial, this will throw an error
+    //myUndefinedFunction();
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
@@ -43,6 +47,10 @@ export default function Signup() {
       }
     } catch (error) {
       console.error("Signup error:", error);
+
+      //Send error details to Sentry
+      Sentry.captureException(error);
+
       setMessage("Error connecting to server");
       setIsSuccess(false);
     }
