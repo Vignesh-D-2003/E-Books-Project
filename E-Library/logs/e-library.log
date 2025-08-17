@@ -135,3 +135,516 @@
 2025-08-17 12:53:39.987 [           main] INFO  o.s.b.w.embedded.tomcat.TomcatWebServer  [traceId:] [user:N/A, roles:N/A] : Tomcat started on port 8080 (http) with context path '/'
 2025-08-17 12:53:39.998 [           main] INFO  c.example.E_Library.ELibraryApplication  [traceId:] [user:N/A, roles:N/A] : Started ELibraryApplication in 2.646 seconds (process running for 2.924)
 2025-08-17 12:53:40.056 [           main] INFO  c.example.E_Library.ELibraryApplication  [traceId:] [user:N/A, roles:N/A] : ELibrary Application has started successfully. Log file should be generated.
+2025-08-17 13:16:44.647 [nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/]       [traceId:] [user:N/A, roles:N/A] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-17 13:16:44.659 [nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet        [traceId:] [user:N/A, roles:N/A] : Initializing Servlet 'dispatcherServlet'
+2025-08-17 13:16:44.745 [nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet        [traceId:] [user:N/A, roles:N/A] : Completed initialization in 84 ms
+2025-08-17 13:18:16.971 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Enter: com.example.E_Library.controller.UserController.login() with argument[s] = [{email=aruljessica0270@gmail.com, password=Jessi@27}]
+2025-08-17 13:18:16.974 [io-8080-exec-10] INFO  c.e.E_Library.controller.UserController  [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Login attempt received for email: aruljessica0270@gmail.com
+2025-08-17 13:18:16.975 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.UserService.loginUser() with argument[s] = [aruljessica0270@gmail.com, Jessi@27]
+2025-08-17 13:18:16.978 [io-8080-exec-10] DEBUG c.example.E_Library.service.UserService  [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Login attempt for email: aruljessica0270@gmail.com
+2025-08-17 13:18:16.980 [io-8080-exec-10] INFO  c.example.E_Library.service.UserService  [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Fetching user details from Supabase for email: aruljessica0270@gmail.com
+2025-08-17 13:18:18.048 [io-8080-exec-10] WARN  c.example.E_Library.service.UserService  [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Login failed: No user found for email: aruljessica0270@gmail.com
+2025-08-17 13:18:18.049 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.UserService.loginUser() with result = false. Executed in 1074 ms
+2025-08-17 13:18:18.050 [io-8080-exec-10] WARN  c.e.E_Library.controller.UserController  [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Login failed for email 'aruljessica0270@gmail.com' due to invalid credentials (checked by user service).
+2025-08-17 13:18:18.050 [io-8080-exec-10] WARN  c.e.E_Library.controller.UserController  [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Authentication failed for email aruljessica0270@gmail.com: Invalid credentials
+2025-08-17 13:18:18.052 [io-8080-exec-10] ERROR c.e.E_Library.aspect.LoggingAspect       [traceId:68a18940991815715af43480d5c1bb54] [user:N/A, roles:N/A] : Exception in com.example.E_Library.controller.UserController.login() with cause = 'NULL' and exception = 'Invalid credentials'
+org.springframework.security.authentication.BadCredentialsException: Invalid credentials
+	at com.example.E_Library.controller.UserController.login(UserController.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:64)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.example.E_Library.aspect.LoggingAspect.logAround(LoggingAspect.java:46)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:649)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:631)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at com.example.E_Library.controller.UserController$$SpringCGLIB$$0.login(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.example.E_Library.configuration.MdcFilter.doFilterInternal(MdcFilter.java:45)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at com.example.E_Library.configuration.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:65)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.example.E_Library.configuration.TraceIdFilter.doFilterInternal(TraceIdFilter.java:36)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-08-17 13:18:22.255 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Enter: com.example.E_Library.controller.UserController.login() with argument[s] = [{email=aruljessica0270@gmail.com, password=Jessi@27}]
+2025-08-17 13:18:22.256 [nio-8080-exec-1] INFO  c.e.E_Library.controller.UserController  [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Login attempt received for email: aruljessica0270@gmail.com
+2025-08-17 13:18:22.256 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.UserService.loginUser() with argument[s] = [aruljessica0270@gmail.com, Jessi@27]
+2025-08-17 13:18:22.256 [nio-8080-exec-1] DEBUG c.example.E_Library.service.UserService  [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Login attempt for email: aruljessica0270@gmail.com
+2025-08-17 13:18:22.257 [nio-8080-exec-1] INFO  c.example.E_Library.service.UserService  [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Fetching user details from Supabase for email: aruljessica0270@gmail.com
+2025-08-17 13:18:22.363 [nio-8080-exec-1] WARN  c.example.E_Library.service.UserService  [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Login failed: No user found for email: aruljessica0270@gmail.com
+2025-08-17 13:18:22.364 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.UserService.loginUser() with result = false. Executed in 108 ms
+2025-08-17 13:18:22.364 [nio-8080-exec-1] WARN  c.e.E_Library.controller.UserController  [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Login failed for email 'aruljessica0270@gmail.com' due to invalid credentials (checked by user service).
+2025-08-17 13:18:22.364 [nio-8080-exec-1] WARN  c.e.E_Library.controller.UserController  [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Authentication failed for email aruljessica0270@gmail.com: Invalid credentials
+2025-08-17 13:18:22.364 [nio-8080-exec-1] ERROR c.e.E_Library.aspect.LoggingAspect       [traceId:68a18946f9c6563efc100b1d7f5720b9] [user:N/A, roles:N/A] : Exception in com.example.E_Library.controller.UserController.login() with cause = 'NULL' and exception = 'Invalid credentials'
+org.springframework.security.authentication.BadCredentialsException: Invalid credentials
+	at com.example.E_Library.controller.UserController.login(UserController.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:64)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.example.E_Library.aspect.LoggingAspect.logAround(LoggingAspect.java:46)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:649)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:631)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at com.example.E_Library.controller.UserController$$SpringCGLIB$$0.login(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.example.E_Library.configuration.MdcFilter.doFilterInternal(MdcFilter.java:45)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at com.example.E_Library.configuration.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:65)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.example.E_Library.configuration.TraceIdFilter.doFilterInternal(TraceIdFilter.java:36)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-08-17 13:20:56.460 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.controller.UserController.login() with argument[s] = [{email=sush2@gmail.com, password=sush234}]
+2025-08-17 13:20:56.460 [nio-8080-exec-4] INFO  c.e.E_Library.controller.UserController  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Login attempt received for email: sush2@gmail.com
+2025-08-17 13:20:56.460 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.UserService.loginUser() with argument[s] = [sush2@gmail.com, sush234]
+2025-08-17 13:20:56.460 [nio-8080-exec-4] DEBUG c.example.E_Library.service.UserService  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Login attempt for email: sush2@gmail.com
+2025-08-17 13:20:56.461 [nio-8080-exec-4] INFO  c.example.E_Library.service.UserService  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Fetching user details from Supabase for email: sush2@gmail.com
+2025-08-17 13:20:57.136 [nio-8080-exec-4] INFO  c.example.E_Library.service.UserService  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Login successful for email: sush2@gmail.com
+2025-08-17 13:20:57.136 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.UserService.loginUser() with result = true. Executed in 676 ms
+2025-08-17 13:20:57.137 [nio-8080-exec-4] DEBUG c.e.E_Library.controller.UserController  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Initial credential check passed for email: sush2@gmail.com
+2025-08-17 13:20:57.138 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with argument[s] = [sush2@gmail.com]
+2025-08-17 13:20:57.328 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=null, updated_at=null, is_admin=false). Executed in 190 ms
+2025-08-17 13:20:57.414 [nio-8080-exec-4] DEBUG c.e.E_Library.controller.UserController  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Authenticating user 'shaz' with Spring Security's AuthenticationManager.
+2025-08-17 13:20:57.500 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:20:57.501 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:20:57.595 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 93 ms
+2025-08-17 13:20:57.598 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=shaz, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 97 ms
+2025-08-17 13:20:57.677 [nio-8080-exec-4] DEBUG c.e.E_Library.controller.UserController  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Spring Security authentication successful for user: shaz
+2025-08-17 13:20:57.678 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.createJwtToken() with argument[s] = [com.example.E_Library.model.JwtRequest@227786c5]
+2025-08-17 13:20:57.678 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:20:57.775 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 97 ms
+2025-08-17 13:20:57.863 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:20:57.959 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 95 ms
+2025-08-17 13:20:57.960 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.createJwtToken() with result = com.example.E_Library.model.JwtResponse@4f77c3b1. Executed in 282 ms
+2025-08-17 13:20:57.960 [nio-8080-exec-4] INFO  c.e.E_Library.controller.UserController  [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : JWT token generated successfully for user: shaz
+2025-08-17 13:20:57.960 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a189e0c4b04698d2cd256d0ebe14c8] [user:N/A, roles:N/A] : Exit: com.example.E_Library.controller.UserController.login() with result = com.example.E_Library.model.JwtResponse@4f77c3b1. Executed in 1500 ms
+2025-08-17 13:23:25.161 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:23:25.162 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:23:25.898 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 736 ms
+2025-08-17 13:23:25.899 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=shaz, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 737 ms
+2025-08-17 13:23:25.955 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:shaz, roles:USER] : Enter: com.example.E_Library.controller.BookController.getAllBooks() with argument[s] = []
+2025-08-17 13:23:25.955 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.getAllBooks() with argument[s] = []
+2025-08-17 13:23:26.099 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.getAllBooks() with result = [{"book_id":10,"title":"Learn Code 3","author":"sam","description":"A complete guide part 2","file_url":"http://exam2learn.com/book.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2}, 
+ {"book_id":16,"title":"Learn Code fake","author":"sam","description":"A complete guide","file_url":"/uploads/1755334330469_WDB+JavaScript+Strings.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2}, 
+ {"book_id":18,"title":"Learn Python","author":"sam","description":"A complete guide","file_url":"/uploads/1755334355871_WDB+JavaScript+Strings.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2}]. Executed in 144 ms
+2025-08-17 13:23:26.100 [nio-8080-exec-7] DEBUG c.e.E_Library.controller.BookController  [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:shaz, roles:USER] : Successfully processed 3 books.
+2025-08-17 13:23:26.104 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18a7551c4b3e2d2fdce043b8fbcf3] [user:shaz, roles:USER] : Exit: com.example.E_Library.controller.BookController.getAllBooks() with result = [{"book_id":10,"title":"Learn Code 3","author":"sam","description":"A complete guide part 2","file_url":"http://localhost:8080http://exam2learn.com/book.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2},{"book_id":16,"title":"Learn Code fake","author":"sam","description":"A complete guide","file_url":"http://localhost:8080/uploads/1755334330469_WDB+JavaScript+Strings.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2},{"book_id":18,"title":"Learn Python","author":"sam","description":"A complete guide","file_url":"http://localhost:8080/uploads/1755334355871_WDB+JavaScript+Strings.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2}]. Executed in 149 ms
+2025-08-17 13:27:07.460 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:27:07.460 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:27:07.980 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 520 ms
+2025-08-17 13:27:07.981 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=shaz, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 521 ms
+2025-08-17 13:27:07.996 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:shaz, roles:USER] : Enter: com.example.E_Library.controller.BookController.getBookById() with argument[s] = [11]
+2025-08-17 13:27:07.996 [io-8080-exec-10] INFO  c.e.E_Library.controller.BookController  [traceId:68a18b536cb690bbc5cee07653d9117e] [user:shaz, roles:USER] : Request received to get book by ID: 11
+2025-08-17 13:27:07.997 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.getBookById() with argument[s] = [11]
+2025-08-17 13:27:08.110 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.getBookById() with result = []. Executed in 113 ms
+2025-08-17 13:27:08.110 [io-8080-exec-10] WARN  c.e.E_Library.controller.BookController  [traceId:68a18b536cb690bbc5cee07653d9117e] [user:shaz, roles:USER] : No book found for ID: 11
+2025-08-17 13:27:08.111 [io-8080-exec-10] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b536cb690bbc5cee07653d9117e] [user:shaz, roles:USER] : Exit: com.example.E_Library.controller.BookController.getBookById() with result = {}. Executed in 115 ms
+2025-08-17 13:27:29.073 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:27:29.074 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:27:29.246 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 172 ms
+2025-08-17 13:27:29.246 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=shaz, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 172 ms
+2025-08-17 13:27:29.251 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:shaz, roles:USER] : Enter: com.example.E_Library.controller.BookController.getBookById() with argument[s] = [10]
+2025-08-17 13:27:29.251 [nio-8080-exec-1] INFO  c.e.E_Library.controller.BookController  [traceId:68a18b695e176a6749287753e21206fd] [user:shaz, roles:USER] : Request received to get book by ID: 10
+2025-08-17 13:27:29.251 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.getBookById() with argument[s] = [10]
+2025-08-17 13:27:29.336 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.getBookById() with result = [{"book_id":10,"title":"Learn Code 3","author":"sam","description":"A complete guide part 2","file_url":"http://exam2learn.com/book.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2}]. Executed in 85 ms
+2025-08-17 13:27:29.337 [nio-8080-exec-1] DEBUG c.e.E_Library.controller.BookController  [traceId:68a18b695e176a6749287753e21206fd] [user:shaz, roles:USER] : Book with ID 10 found.
+2025-08-17 13:27:29.337 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18b695e176a6749287753e21206fd] [user:shaz, roles:USER] : Exit: com.example.E_Library.controller.BookController.getBookById() with result = {"book_id":10,"title":"Learn Code 3","author":"sam","description":"A complete guide part 2","file_url":"http://localhost:8080http://exam2learn.com/book.pdf","uploaded_by":1,"uploaded_at":"2025-08-15T12:08:00+00:00","category_id":2}. Executed in 86 ms
+2025-08-17 13:35:20.267 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:35:20.271 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:35:21.095 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 824 ms
+2025-08-17 13:35:21.095 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=shaz, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 825 ms
+2025-08-17 13:35:21.250 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:shaz, roles:USER] : Enter: com.example.E_Library.controller.UserController.register() with argument[s] = [User(user_id=null, username=aj123, email=aj.jessica2004@gmail.com, password=aj123, created_at=null, updated_at=null, is_admin=null)]
+2025-08-17 13:35:21.251 [nio-8080-exec-7] INFO  c.e.E_Library.controller.UserController  [traceId:68a18d4057aa66d1160f5cb586045f66] [user:shaz, roles:USER] : Request received to register a new user with email: aj.jessica2004@gmail.com
+2025-08-17 13:35:21.251 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.UserService.registerUser() with argument[s] = [User(user_id=null, username=aj123, email=aj.jessica2004@gmail.com, password=aj123, created_at=null, updated_at=null, is_admin=null)]
+2025-08-17 13:35:21.341 [nio-8080-exec-7] INFO  c.example.E_Library.service.UserService  [traceId:68a18d4057aa66d1160f5cb586045f66] [user:shaz, roles:USER] : Sending registration request to Supabase for user: aj.jessica2004@gmail.com
+2025-08-17 13:35:21.681 [nio-8080-exec-7] INFO  c.example.E_Library.service.UserService  [traceId:68a18d4057aa66d1160f5cb586045f66] [user:shaz, roles:USER] : Successfully registered user: aj.jessica2004@gmail.com
+2025-08-17 13:35:21.681 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.UserService.registerUser() with result = null. Executed in 430 ms
+2025-08-17 13:35:21.681 [nio-8080-exec-7] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18d4057aa66d1160f5cb586045f66] [user:shaz, roles:USER] : Exit: com.example.E_Library.controller.UserController.register() with result = null. Executed in 430 ms
+2025-08-17 13:39:06.057 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:39:06.061 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [shaz]
+2025-08-17 13:39:06.631 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=8, username=shaz, email=sush2@gmail.com, password=$2a$10$7xVhNORF9eUsbxbLjzO5tOnsiHB2wi10cIWc2Skd4DR6guKusenlm, created_at=2025-08-16T20:20:23.835617+00:00, updated_at=2025-08-16T20:20:23.835617+00:00, is_admin=false). Executed in 568 ms
+2025-08-17 13:39:06.633 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=shaz, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 572 ms
+2025-08-17 13:39:06.649 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.controller.UserController.login() with argument[s] = [{email=aj.jessica2004@gmail.com, password=aj123}]
+2025-08-17 13:39:06.649 [nio-8080-exec-1] INFO  c.e.E_Library.controller.UserController  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Login attempt received for email: aj.jessica2004@gmail.com
+2025-08-17 13:39:06.649 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.UserService.loginUser() with argument[s] = [aj.jessica2004@gmail.com, aj123]
+2025-08-17 13:39:06.650 [nio-8080-exec-1] DEBUG c.example.E_Library.service.UserService  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Login attempt for email: aj.jessica2004@gmail.com
+2025-08-17 13:39:06.651 [nio-8080-exec-1] INFO  c.example.E_Library.service.UserService  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Fetching user details from Supabase for email: aj.jessica2004@gmail.com
+2025-08-17 13:39:06.931 [nio-8080-exec-1] INFO  c.example.E_Library.service.UserService  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Login successful for email: aj.jessica2004@gmail.com
+2025-08-17 13:39:06.933 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.UserService.loginUser() with result = true. Executed in 283 ms
+2025-08-17 13:39:06.933 [nio-8080-exec-1] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Initial credential check passed for email: aj.jessica2004@gmail.com
+2025-08-17 13:39:06.933 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with argument[s] = [aj.jessica2004@gmail.com]
+2025-08-17 13:39:07.058 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=null, updated_at=null, is_admin=false). Executed in 125 ms
+2025-08-17 13:39:07.143 [nio-8080-exec-1] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Authenticating user 'aj123' with Spring Security's AuthenticationManager.
+2025-08-17 13:39:07.145 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:39:07.145 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:39:07.366 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 220 ms
+2025-08-17 13:39:07.366 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=aj123, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 221 ms
+2025-08-17 13:39:07.456 [nio-8080-exec-1] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Spring Security authentication successful for user: aj123
+2025-08-17 13:39:07.457 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.JwtService.createJwtToken() with argument[s] = [com.example.E_Library.model.JwtRequest@59ab2aec]
+2025-08-17 13:39:07.458 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:39:07.585 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 125 ms
+2025-08-17 13:39:07.589 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:39:07.686 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 97 ms
+2025-08-17 13:39:07.687 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.service.JwtService.createJwtToken() with result = com.example.E_Library.model.JwtResponse@48922fbc. Executed in 229 ms
+2025-08-17 13:39:07.687 [nio-8080-exec-1] INFO  c.e.E_Library.controller.UserController  [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : JWT token generated successfully for user: aj123
+2025-08-17 13:39:07.687 [nio-8080-exec-1] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e22891cabfe8ea80cc10082b71c] [user:shaz, roles:USER] : Exit: com.example.E_Library.controller.UserController.login() with result = com.example.E_Library.model.JwtResponse@48922fbc. Executed in 1038 ms
+2025-08-17 13:40:39.076 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:39.076 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:39.606 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 529 ms
+2025-08-17 13:40:39.606 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=aj123, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 530 ms
+2025-08-17 13:40:39.612 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.controller.UserController.login() with argument[s] = [{email=aj.jessica2004@gmail.com, password=aj123}]
+2025-08-17 13:40:39.612 [nio-8080-exec-4] INFO  c.e.E_Library.controller.UserController  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Login attempt received for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:39.612 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.UserService.loginUser() with argument[s] = [aj.jessica2004@gmail.com, aj123]
+2025-08-17 13:40:39.613 [nio-8080-exec-4] DEBUG c.example.E_Library.service.UserService  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Login attempt for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:39.613 [nio-8080-exec-4] INFO  c.example.E_Library.service.UserService  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Fetching user details from Supabase for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:39.943 [nio-8080-exec-4] INFO  c.example.E_Library.service.UserService  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Login successful for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:39.943 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.UserService.loginUser() with result = true. Executed in 330 ms
+2025-08-17 13:40:39.944 [nio-8080-exec-4] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Initial credential check passed for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:39.944 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with argument[s] = [aj.jessica2004@gmail.com]
+2025-08-17 13:40:40.082 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=null, updated_at=null, is_admin=false). Executed in 138 ms
+2025-08-17 13:40:40.167 [nio-8080-exec-4] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Authenticating user 'aj123' with Spring Security's AuthenticationManager.
+2025-08-17 13:40:40.167 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:40.167 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:40.286 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 119 ms
+2025-08-17 13:40:40.287 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=aj123, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 120 ms
+2025-08-17 13:40:40.369 [nio-8080-exec-4] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Spring Security authentication successful for user: aj123
+2025-08-17 13:40:40.369 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.JwtService.createJwtToken() with argument[s] = [com.example.E_Library.model.JwtRequest@730feb7f]
+2025-08-17 13:40:40.370 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:40.613 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 243 ms
+2025-08-17 13:40:40.614 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:40.738 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 124 ms
+2025-08-17 13:40:40.740 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.JwtService.createJwtToken() with result = com.example.E_Library.model.JwtResponse@69a81ce5. Executed in 370 ms
+2025-08-17 13:40:40.740 [nio-8080-exec-4] INFO  c.e.E_Library.controller.UserController  [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : JWT token generated successfully for user: aj123
+2025-08-17 13:40:40.740 [nio-8080-exec-4] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e7f3d348a446d3f66bbd3ed745a] [user:aj123, roles:USER] : Exit: com.example.E_Library.controller.UserController.login() with result = com.example.E_Library.model.JwtResponse@69a81ce5. Executed in 1128 ms
+2025-08-17 13:40:52.907 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:52.908 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:N/A, roles:N/A] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:53.205 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 297 ms
+2025-08-17 13:40:53.207 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:N/A, roles:N/A] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=aj123, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 299 ms
+2025-08-17 13:40:53.210 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.controller.UserController.login() with argument[s] = [{email=aj.jessica2004@gmail.com, password=aj123}]
+2025-08-17 13:40:53.210 [nio-8080-exec-6] INFO  c.e.E_Library.controller.UserController  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Login attempt received for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:53.210 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.UserService.loginUser() with argument[s] = [aj.jessica2004@gmail.com, aj123]
+2025-08-17 13:40:53.210 [nio-8080-exec-6] DEBUG c.example.E_Library.service.UserService  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Login attempt for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:53.212 [nio-8080-exec-6] INFO  c.example.E_Library.service.UserService  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Fetching user details from Supabase for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:53.407 [nio-8080-exec-6] INFO  c.example.E_Library.service.UserService  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Login successful for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:53.407 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.UserService.loginUser() with result = true. Executed in 197 ms
+2025-08-17 13:40:53.407 [nio-8080-exec-6] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Initial credential check passed for email: aj.jessica2004@gmail.com
+2025-08-17 13:40:53.408 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with argument[s] = [aj.jessica2004@gmail.com]
+2025-08-17 13:40:53.503 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByEmail() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=null, updated_at=null, is_admin=false). Executed in 95 ms
+2025-08-17 13:40:53.595 [nio-8080-exec-6] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Authenticating user 'aj123' with Spring Security's AuthenticationManager.
+2025-08-17 13:40:53.596 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.JwtService.loadUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:53.597 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:53.693 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 95 ms
+2025-08-17 13:40:53.693 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.JwtService.loadUserByUsername() with result = org.springframework.security.core.userdetails.User [Username=aj123, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]. Executed in 96 ms
+2025-08-17 13:40:53.801 [nio-8080-exec-6] DEBUG c.e.E_Library.controller.UserController  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Spring Security authentication successful for user: aj123
+2025-08-17 13:40:53.801 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.JwtService.createJwtToken() with argument[s] = [com.example.E_Library.model.JwtRequest@1d101a66]
+2025-08-17 13:40:53.803 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:53.892 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 89 ms
+2025-08-17 13:40:53.894 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Enter: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with argument[s] = [aj123]
+2025-08-17 13:40:53.986 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.SupabaseService.fetchUserByUsername() with result = User(user_id=13, username=aj123, email=aj.jessica2004@gmail.com, password=$2a$10$G9H5p116s4dWeWivXydqi.ea31ETvWG2cS8dAOgFWlyEzgBFLVbcO, created_at=2025-08-17T08:07:54.523005+00:00, updated_at=2025-08-17T08:07:54.523005+00:00, is_admin=false). Executed in 92 ms
+2025-08-17 13:40:53.986 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.service.JwtService.createJwtToken() with result = com.example.E_Library.model.JwtResponse@1ad97ea4. Executed in 185 ms
+2025-08-17 13:40:53.986 [nio-8080-exec-6] INFO  c.e.E_Library.controller.UserController  [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : JWT token generated successfully for user: aj123
+2025-08-17 13:40:53.987 [nio-8080-exec-6] DEBUG c.e.E_Library.aspect.LoggingAspect       [traceId:68a18e8cd58d1fae87320a3e2ca0ec55] [user:aj123, roles:USER] : Exit: com.example.E_Library.controller.UserController.login() with result = com.example.E_Library.model.JwtResponse@1ad97ea4. Executed in 777 ms

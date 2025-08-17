@@ -51,7 +51,7 @@ public class UserService {
         newUser.put("username", user.getUsername());
         newUser.put("email", user.getEmail());
         newUser.put("password", encodedPassword);
-        newUser.put("is_admin", false); 
+        newUser.put("is_admin", false);
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(newUser,getHeaders());
 
