@@ -1,5 +1,6 @@
 "use client";
-
+import React from "react";
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -13,13 +14,17 @@ export default function EditBookPage({ params }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [coverUrl, setCoverUrl] = useState("");
+  const [fileUrl, setfileUrl] = useState("");
+  const [uploadedBy, setuploadedBy] = useState(0);
+  // const [coverUrl, setCoverUrl] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [categories, setCategories] = useState([]);
   const router = useRouter();
-  const bookId = params.id;
+  // const bookId = params.id;
+  const unwrappedParams = React.use(params);
+  const bookId = unwrappedParams.id;
 
   useEffect(() => {
     // Fetch book details and categories
@@ -31,11 +36,16 @@ export default function EditBookPage({ params }) {
         ]);
 
         if (bookResult.success && bookResult.data) {
+          
           const book = bookResult.data;
+          console.log(book);
           setTitle(book.title || "");
           setAuthor(book.author || "");
           setCategoryId(book.category_id || "");
-          setCoverUrl(book.cover_url || "");
+          setfileUrl(book.file_url || "");
+          setuploadedBy(book.uploaded_by || 0);
+
+          // setCoverUrl(book.cover_url || "");
         } else {
           setError("Failed to fetch book details");
         }
@@ -70,9 +80,14 @@ export default function EditBookPage({ params }) {
         title,
         author,
         category_id: categoryId,
-        cover_url: coverUrl || null,
+        file_url: fileUrl,
+        uploaded_by: uploadedBy
+        // cover_url: coverUrl || null,
       };
-
+      console.log('sending update info');
+      
+      console.log(updates);
+      
       const result = await bookService.updateBook(bookId, updates);
 
       if (result.success) {
@@ -146,7 +161,7 @@ export default function EditBookPage({ params }) {
                 ))}
               </select>
             </div>
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="cover-image">Cover Image URL (optional)</Label>
               <Input
                 id="cover-image"
@@ -154,7 +169,7 @@ export default function EditBookPage({ params }) {
                 value={coverUrl}
                 onChange={(e) => setCoverUrl(e.target.value)}
               />
-            </div>
+            </div> */}
             <div className="space-y-2">
               <p className="text-sm text-gray-500">
                 Note: To change the PDF file, please delete this book and add a

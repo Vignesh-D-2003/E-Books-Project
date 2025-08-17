@@ -10,7 +10,7 @@ export function BookCard({ book, isAdmin }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
-  const imageUrl = book.cover_url || "/placeholder.svg";
+  const imageUrl = "/book.svg";
 
   const handleReadBook = () => {
     if (book.file_url) {
@@ -44,11 +44,14 @@ export function BookCard({ book, isAdmin }) {
   return (
     <Card>
       <CardContent className="p-4">
-        <img
-          src={imageUrl}
-          alt={book.title}
-          className="w-full h-48 object-cover mb-4 rounded-md"
-        />
+        <div className="flex justify-center items-center">
+          <img
+            src={imageUrl}
+            alt={book.title}
+            className="w-20 h-32 object-cover mb-4 rounded-md"
+          />
+
+        </div>
         <h3 className="text-lg font-semibold mb-1">{book.title}</h3>
         <p className="text-sm text-gray-500 mb-4">{book.author}</p>
         <Button className="w-full" onClick={handleReadBook}>
