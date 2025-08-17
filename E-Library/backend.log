@@ -1,0 +1,74 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/Users/nishant/.m2/wrapper/dists/apache-maven-3.9.11/a2d47e15/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.example:E-Library >------------------------
+[INFO] Building E-Library 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.4:run (default-cli) > test-compile @ E-Library >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ E-Library ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ E-Library ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 21 source files with javac [debug parameters release 17] to target/classes
+[INFO] /Users/nishant/Developer/E-Books-Project/E-Library/src/main/java/com/example/E_Library/configuration/WebSecurityConfiguration.java: /Users/nishant/Developer/E-Books-Project/E-Library/src/main/java/com/example/E_Library/configuration/WebSecurityConfiguration.java uses or overrides a deprecated API.
+[INFO] /Users/nishant/Developer/E-Books-Project/E-Library/src/main/java/com/example/E_Library/configuration/WebSecurityConfiguration.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ E-Library ---
+[INFO] skip non existing resourceDirectory /Users/nishant/Developer/E-Books-Project/E-Library/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ E-Library ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 17] to target/test-classes
+[INFO] 
+[INFO] <<< spring-boot:3.5.4:run (default-cli) < test-compile @ E-Library <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.4:run (default-cli) @ E-Library ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.4)
+
+2025-08-17T13:20:39.526+05:30  INFO 88735 --- [E-Library] [           main] c.example.E_Library.ELibraryApplication  : Starting ELibraryApplication using Java 24.0.2 with PID 88735 (/Users/nishant/Developer/E-Books-Project/E-Library/target/classes started by nishant in /Users/nishant/Developer/E-Books-Project/E-Library)
+2025-08-17T13:20:39.527+05:30  INFO 88735 --- [E-Library] [           main] c.example.E_Library.ELibraryApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-08-17T13:20:40.130+05:30  INFO 88735 --- [E-Library] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-17T13:20:40.141+05:30  INFO 88735 --- [E-Library] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-17T13:20:40.141+05:30  INFO 88735 --- [E-Library] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-17T13:20:40.169+05:30  INFO 88735 --- [E-Library] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-17T13:20:40.169+05:30  INFO 88735 --- [E-Library] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 617 ms
+2025-08-17T13:20:40.307+05:30  INFO 88735 --- [E-Library] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-08-17T13:20:40.307+05:30  WARN 88735 --- [E-Library] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-08-17T13:20:40.678+05:30  INFO 88735 --- [E-Library] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-17T13:20:40.684+05:30  INFO 88735 --- [E-Library] [           main] c.example.E_Library.ELibraryApplication  : Started ELibraryApplication in 1.396 seconds (process running for 1.577)
+2025-08-17T13:21:17.196+05:30  INFO 88735 --- [E-Library] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-17T13:21:17.197+05:30  INFO 88735 --- [E-Library] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-17T13:21:17.198+05:30  INFO 88735 --- [E-Library] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-08-17T13:30:00.740+05:30  INFO 88735 --- [E-Library] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-17T13:30:00.754+05:30  INFO 88735 --- [E-Library] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  09:23 min
+[INFO] Finished at: 2025-08-17T13:30:00+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.4:run (default-cli) on project E-Library: Process terminated with exit code: 143 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
