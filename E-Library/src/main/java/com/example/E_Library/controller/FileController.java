@@ -5,6 +5,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
@@ -18,6 +19,7 @@ public class FileController {
     private final Path uploadDir = Paths.get("uploads");
 
     @GetMapping("/{filename:.+}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws MalformedURLException {
         Path file = uploadDir.resolve(filename).normalize();
         Resource resource = new UrlResource(file.toUri());

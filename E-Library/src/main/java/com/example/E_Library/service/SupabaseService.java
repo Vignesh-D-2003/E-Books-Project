@@ -2,6 +2,7 @@ package com.example.E_Library.service;
 
 import com.example.E_Library.model.Book;
 import com.example.E_Library.model.BookCategory;
+import com.example.E_Library.model.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -56,6 +57,74 @@ public class SupabaseService {
         headers.set("Authorization", "Bearer " + secretKey);
         return headers;
     }
+    
+    //=====User Details for Jwt ====
+    public User fetchUserByUsername(String username) {
+        String url = projectUrl + "/rest/v1/users?username=eq." + username;
+        HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            String body = response.getBody();
+
+            JsonNode array = objectMapper.readTree(body);
+            if (array.isArray() && array.size() > 0) {
+                JsonNode node = array.get(0);
+
+                User user = new User();
+                user.setUser_id(node.get("user_id").asInt());
+                user.setUsername(node.get("username").asText());
+                user.setEmail(node.get("email").asText());
+                user.setPassword(node.get("password").asText());
+                user.setCreated_at(node.get("created_at").asText());
+                user.setUpdated_at(node.get("updated_at").asText());
+                user.setIs_admin(node.get("is_admin").asBoolean());
+
+                return user;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching user from Supabase", e);
+        }
+    }
+    //=====user by email for login ====
+ // Fetch by email
+    public User fetchUserByEmail(String email) {
+        String url = projectUrl + "/rest/v1/users?email=eq." + email;
+        HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            JsonNode array = objectMapper.readTree(response.getBody());
+            if (array.isArray() && array.size() > 0) {
+                JsonNode node = array.get(0);
+                User user = new User();
+                user.setUser_id(node.get("user_id").asInt());
+                user.setUsername(node.get("username").asText());
+                user.setEmail(node.get("email").asText());
+                user.setPassword(node.get("password").asText());
+                user.setIs_admin(node.get("is_admin").asBoolean());
+                return user;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching user by email", e);
+        }
+    }
+
+    // Add new user
+    public String addUser(Map<String, Object> userMap) {
+        String url = projectUrl + "/rest/v1/users";
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(userMap, getHeaders());
+
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            return "Error registering user: " + e.getResponseBodyAsString();
+        }
+    }
+
 
     // ===== BOOK CRUD =====
     public String getAllBooks() {

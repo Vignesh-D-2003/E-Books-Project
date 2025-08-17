@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,7 @@ public class BookController {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String getAllBooks() throws Exception {
         String jsonResponse = supabaseService.getAllBooks();
 
@@ -42,6 +44,7 @@ public class BookController {
     }
 
     @GetMapping("/{book_id}")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String getBookById(@PathVariable Integer book_id) throws Exception {
         String jsonResponse = supabaseService.getBookById(book_id.toString());
 
@@ -80,6 +83,7 @@ public class BookController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public String addBook(
             @RequestPart("book") String bookJson,
             @RequestPart("pdf") MultipartFile pdfFile) {
@@ -101,6 +105,7 @@ public class BookController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String updateBook(@PathVariable String id, @RequestBody Map<String, Object> updates) {
         // Supabase needs book_id in the body for PUT
         updates.put("book_id", Long.parseLong(id));
@@ -108,16 +113,19 @@ public class BookController {
     }
 
     @DeleteMapping("/{book_id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteBook(@PathVariable Integer book_id) {
         return supabaseService.deleteBook(book_id.toString());
     }
 
     @GetMapping("/search")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String searchBooks(@RequestParam("query") String query) {
         return supabaseService.searchBooks(query);
     }
 
     @PostMapping("/download-multiple")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String downloadMultiple(@RequestBody List<String> bookIds) {
         return supabaseService.downloadMultiple(bookIds);
     }
