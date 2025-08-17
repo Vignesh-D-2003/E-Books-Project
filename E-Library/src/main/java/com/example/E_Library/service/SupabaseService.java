@@ -1,5 +1,6 @@
 package com.example.E_Library.service;
 
+import com.example.E_Library.exceptions.*;
 import com.example.E_Library.model.Book;
 import com.example.E_Library.model.BookCategory;
 import com.example.E_Library.model.User;
@@ -82,7 +83,11 @@ public class SupabaseService {
 
                 return user;
             }
-            return null;
+            throw new ResourceNotFoundException("User not found with username: " + username);
+
+        }
+        catch (ResourceNotFoundException e) {
+            throw e; // propagate as-is
         } catch (Exception e) {
             throw new RuntimeException("Error fetching user from Supabase", e);
         }
@@ -106,8 +111,10 @@ public class SupabaseService {
                 user.setIs_admin(node.get("is_admin").asBoolean());
                 return user;
             }
-            return null;
-        } catch (Exception e) {
+            throw new AuthenticationFailedException("Invalid email or password");
+        } catch (AuthenticationFailedException e) {
+            throw e;
+        }catch (Exception e) {
             throw new RuntimeException("Error fetching user by email", e);
         }
     }
@@ -121,8 +128,8 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error registering user: " + e.getResponseBodyAsString();
-        }
+            throw new AuthenticationFailedException("Error registering user: " + e.getResponseBodyAsString());
+    }
     }
 
 
@@ -141,7 +148,7 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error fetching book: " + e.getResponseBodyAsString();
+            throw new ResourceNotFoundException("Book not found with ID: " + id);
         }
     }
 
@@ -170,7 +177,7 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error adding book: " + e.getResponseBodyAsString();
+            throw new ResourceNotFoundException("Error adding book: " + e.getResponseBodyAsString());
         }
     }
 
@@ -198,7 +205,7 @@ public class SupabaseService {
             return response.getBody();
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error updating book: " + e.getMessage();
+            throw new ResourceNotFoundException("Error updating book with ID: " + id);
         }
     }
 
@@ -209,7 +216,7 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error deleting book: " + e.getResponseBodyAsString();
+            throw new ResourceNotFoundException("Book not found with ID: " + id);
         }
     }
 
@@ -236,7 +243,7 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error adding category: " + e.getResponseBodyAsString();
+            throw new ResourceNotFoundException("Error adding category: " + e.getResponseBodyAsString());
         }
     }
 
@@ -264,7 +271,7 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error updating category: " + e.getResponseBodyAsString();
+            throw new ResourceNotFoundException("Category not found with ID: " + id);
         }
     }
 
@@ -275,7 +282,7 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error deleting category: " + e.getResponseBodyAsString();
+            throw new ResourceNotFoundException("Category not found with ID: " + id);
         }
     }
 
@@ -289,7 +296,7 @@ public class SupabaseService {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            return "Error searching books: " + e.getResponseBodyAsString();
+            throw new ResourceNotFoundException("No books found for query: " + query);
         }
     }
 
@@ -326,8 +333,7 @@ public class SupabaseService {
             response.put("message", "Successfully created zip file with " + bookIds.size() + " books");
             return objectMapper.writeValueAsString(response);
         } catch (Exception e) {
-            e.printStackTrace();
-            return "Error creating zip file: " + e.getMessage();
+            throw new ResourceNotFoundException("Error creating zip file: " + e.getMessage());
         }
     }
 

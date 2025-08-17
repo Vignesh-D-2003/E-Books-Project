@@ -1,5 +1,6 @@
 package com.example.E_Library.service;
 
+import com.example.E_Library.exceptions.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class JwtService implements UserDetailsService {
 
         User user = supabaseService.fetchUserByUsername(userName);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new ResourceNotFoundException("User not found with username: " + userName);
         }
 
         return new JwtResponse(user, newGeneratedToken);
@@ -43,8 +44,9 @@ public class JwtService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = supabaseService.fetchUserByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new AuthenticationFailedException("Invalid username or password");
         }
+
                  
 
         return new org.springframework.security.core.userdetails.User(

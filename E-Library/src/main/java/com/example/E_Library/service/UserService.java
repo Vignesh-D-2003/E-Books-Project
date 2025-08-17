@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.web.client.HttpClientErrorException;
-
+import com.example.E_Library.exceptions.*;
 @Service
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -62,9 +62,13 @@ public class UserService {
             return response.getBody();
         } catch (HttpClientErrorException e) {
             // Log the error with details from the exception
+
             logger.error("Error during user registration for email {}: Status Code: {}, Response: {}",
                     user.getEmail(), e.getStatusCode(), e.getResponseBodyAsString(), e);
-            return "Error registering user: " + e.getResponseBodyAsString();
+            throw new SupabaseException("Error registering user: "+e.getResponseBodyAsString());
+        }
+        catch (Exception e) {
+            throw new SupabaseException("Unexpected error while registering user: " + e.getMessage());
         }
 
     }
@@ -82,7 +86,7 @@ public class UserService {
 
             if (body == null || body.equals("[]")) {
                 logger.warn("Login failed: No user found for email: {}", email);
-                return false;
+                throw new ResourceNotFoundException("Invalid Password or Email");
             }
 
             // Parse user
@@ -95,17 +99,25 @@ public class UserService {
             boolean passwordMatches = passwordEncoder.matches(rawPassword, encodedPassword);
             if (passwordMatches) {
                 logger.info("Login successful for email: {}", email);
+                return true;
             } else {
                 logger.warn("Login failed: Invalid password for email: {}", email);
-            }
-            return passwordMatches;
+                // Invalid password
+                throw new AuthenticationFailedException("Invalid Pssword or Email");
 
+            }
+
+        } catch (AuthenticationFailedException | ResourceNotFoundException ex) {
+            throw ex; // rethrow known exceptions
+        } catch (HttpClientErrorException e) {
+            logger.error("Supabase API error during login for email {}: {}", email, e.getResponseBodyAsString(), e);
+            throw new SupabaseException("Supabase API error: " + e.getResponseBodyAsString());
         } catch (Exception e) {
-            logger.error("An unexpected error occurred during login for email {}:", email, e);
-            // We are no longer using e.printStackTrace(); the logger handles it.
-            return false;
+            logger.error("Unexpected error during login for email {}:", email, e);
+            throw new SupabaseException("Unexpected error while logging in: " + e.getMessage());
         }
     }
+
 
 }
 
