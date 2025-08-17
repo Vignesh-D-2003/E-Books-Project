@@ -5,38 +5,38 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/uploads")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class FileController {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
-
-    private final Path uploadDir = Paths.get("uploads");
+    private final Path uploadDir = Paths.get(new File(".").getAbsolutePath(), "uploads");
 
     @GetMapping("/{filename:.+}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws MalformedURLException {
-        logger.info("Request received to serve file: {}", filename);
-        Path file = uploadDir.resolve(filename).normalize();
-        Resource resource = new UrlResource(file.toUri());
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        try {
+            Path file = uploadDir.resolve(filename).normalize();
+            Resource resource = new UrlResource(file.toUri());
 
-        if (resource.exists()) {
-            logger.debug("File '{}' found. Preparing to stream as PDF.", filename);
+            if (!resource.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
             return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_PDF) // 👈 PDF content type
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "inline; filename=\"" + resource.getFilename() + "\"")
                     .body(resource);
-        } else {
-            logger.warn("File requested but not found: {}", filename);
-            return ResponseEntity.notFound().build();
+
+        } catch (MalformedURLException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 }

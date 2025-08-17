@@ -12,18 +12,87 @@ import {
   Eye, 
   Calendar,
   User,
-  FileText
+  FileText,
+  Loader2
 } from "lucide-react";
 
 export function BookCard({ book, isAdmin, viewMode = "grid" }) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isReading, setIsReading] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
   const imageUrl = "/book.svg";
 
-  const handleReadBook = () => {
+  const handleReadBook = async () => {
     if (book.file_url) {
-      window.open(book.file_url, "_blank");
+      try {
+        setIsReading(true);
+        
+        // Get the authentication token (temporarily disabled for testing)
+        // const token = localStorage.getItem("token");
+        // if (!token) {
+        //   alert("Please log in to read books.");
+        //   return;
+        // }
+
+        // Determine the correct URL to use
+        let fetchUrl = book.file_url;
+        
+     // Ensure we always fetch directly without proxy
+if (fetchUrl.includes('/uploads/')) {
+  // Remove any '/proxy' part if present
+  fetchUrl = fetchUrl.replace('/proxy', '');
+
+  // Extract filename after /uploads/
+  const filename = fetchUrl.split('/uploads/')[1];
+  fetchUrl = `http://localhost:8080/uploads/${filename}`;
+}
+
+console.log('Fetching PDF from:', fetchUrl);
+
+// Fetch the PDF
+let response = await fetch(fetchUrl, {
+  method: 'GET',
+  // Uncomment if you need authentication
+  // headers: {
+  //   'Authorization': `Bearer ${token}`,
+  // },
+});
+
+// Check response
+if (!response.ok) {
+  throw new Error(`Failed to fetch PDF: ${response.statusText}`);
+}
+
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Response error:', response.status, errorText);
+          throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+        }
+
+        // Convert the response to blob
+        const blob = await response.blob();
+        
+        // Create a URL for the blob
+        const url = window.URL.createObjectURL(blob);
+        
+        // Open the PDF in a new tab
+        window.open(url, "_blank");
+        
+        // Clean up the URL object after a delay
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+        }, 1000);
+        
+      } catch (error) {
+        console.error("Error opening book:", error);
+        alert("Unable to open the book. Please try again.");
+      } finally {
+        setIsReading(false);
+      }
+    } else {
+      alert("No PDF file available for this book.");
     }
   };
 
@@ -96,10 +165,15 @@ export function BookCard({ book, isAdmin, viewMode = "grid" }) {
                 <div className="flex items-center gap-3 flex-shrink-0">
                   <Button
                     onClick={handleReadBook}
-                    className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white flex items-center gap-2"
+                    disabled={!book.file_url || isReading}
+                    className={`flex items-center gap-2 ${
+                      book.file_url 
+                        ? "bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white" 
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
                   >
-                    <Eye className="w-4 h-4" />
-                    Read
+                    {isReading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
+                    {isReading ? "Loading..." : (book.file_url ? "Read" : "No PDF")}
                   </Button>
                   
                   {isAdmin && (
@@ -162,10 +236,15 @@ export function BookCard({ book, isAdmin, viewMode = "grid" }) {
         <div className="space-y-3">
           <Button 
             onClick={handleReadBook}
-            className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white flex items-center justify-center gap-2 transition-all duration-200"
+            disabled={!book.file_url || isReading}
+            className={`w-full flex items-center justify-center gap-2 transition-all duration-200 ${
+              book.file_url 
+                ? "bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white" 
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
           >
-            <Eye className="w-4 h-4" />
-            Read Book
+            {isReading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
+            {isReading ? "Loading..." : (book.file_url ? "Read Book" : "No PDF Available")}
           </Button>
           
           {isAdmin && (

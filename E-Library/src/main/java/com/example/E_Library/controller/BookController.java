@@ -34,8 +34,7 @@ public class BookController {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping
-    // Temporarily permit all for debugging fetch issue (was
-    // @PreAuthorize("hasAnyRole('USER','ADMIN')"))
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String getAllBooks() throws Exception {
         String jsonResponse = supabaseService.getAllBooks();
 
@@ -55,8 +54,7 @@ public class BookController {
     }
 
     @GetMapping("/{book_id}")
-    // Temporarily permit all for debugging (was
-    // @PreAuthorize("hasAnyRole('USER','ADMIN')"))
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String getBookById(@PathVariable Integer book_id) throws Exception {
         logger.info("Request received to get book by ID: {}", book_id);
         String jsonResponse = supabaseService.getBookById(book_id.toString());

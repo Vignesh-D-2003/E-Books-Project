@@ -98,32 +98,32 @@ export default function HomePage() {
               in our comprehensive digital library.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-              {isAuthenticated ? (
-                <>
-                  <Link href="/books">
+            {isAuthenticated ? (
+              <>
+                <Link href="/books">
                     <Button size="lg" className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                       <BookOpen className="w-5 h-5 mr-2" />
                       Browse Library
                     </Button>
-                  </Link>
-                  {isAdmin && (
-                    <Link href="/admin/dashboard">
+                </Link>
+                {isAdmin && (
+                  <Link href="/admin/dashboard">
                       <Button size="lg" variant="outline" className="px-8 py-3 text-lg font-semibold border-2 hover:bg-white/80 transition-all duration-300">
                         <Settings className="w-5 h-5 mr-2" />
-                        Admin Dashboard
-                      </Button>
-                    </Link>
-                  )}
-                </>
-              ) : (
-                <>
-                  <Link href="/login">
+                      Admin Dashboard
+                    </Button>
+                  </Link>
+                )}
+              </>
+            ) : (
+              <>
+                <Link href="/login">
                     <Button size="lg" className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                       <Sparkles className="w-5 h-5 mr-2" />
                       Get Started
                     </Button>
-                  </Link>
-                  <Link href="/signup">
+                </Link>
+                <Link href="/signup">
                     <Button size="lg" variant="outline" className="px-8 py-3 text-lg font-semibold border-2 hover:bg-white/80 transition-all duration-300">
                       <Users className="w-5 h-5 mr-2" />
                       Join Now
@@ -331,13 +331,13 @@ export default function HomePage() {
                       <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-orange-600 px-8 py-3 text-lg font-semibold transition-all duration-300">
                         <Users className="w-5 h-5 mr-2" />
                         Sign In
-                      </Button>
-                    </Link>
-                  </>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                  </Button>
+                </Link>
+              </>
+            )}
+          </div>
+        </CardContent>
+      </Card>
         </div>
       </section>
     </div>
