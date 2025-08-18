@@ -18,21 +18,13 @@ public class LoggingAspect {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    /**
-     * Pointcut that matches all methods in the service and controller packages.
-     */
     @Pointcut("within(com.example.E_Library.service..*) || within(com.example.E_Library.controller..*)")
     public void applicationPackagePointcut() {
-        // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }
 
-    /**
-     * Advice that logs method entry, exit, and execution time.
-     * It also logs exceptions thrown by a method.
-     */
     @Around("applicationPackagePointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        // Log method entry
+        
         if (logger.isDebugEnabled()) {
             logger.debug("Enter: {}.{}() with argument[s] = {}",
                     joinPoint.getSignature().getDeclaringTypeName(),
@@ -42,12 +34,12 @@ public class LoggingAspect {
 
         try {
             long startTime = System.currentTimeMillis();
-            // Proceed with the actual method execution
+            
             Object result = joinPoint.proceed();
             long endTime = System.currentTimeMillis();
             long timeTaken = endTime - startTime;
 
-            // Log method exit
+            
             if (logger.isDebugEnabled()) {
                 logger.debug("Exit: {}.{}() with result = {}. Executed in {} ms",
                         joinPoint.getSignature().getDeclaringTypeName(),
@@ -65,9 +57,7 @@ public class LoggingAspect {
         }
     }
 
-    /**
-     * Advice that logs when a method throws an exception.
-     */
+    
     @AfterThrowing(pointcut = "applicationPackagePointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         logger.error("Exception in {}.{}() with cause = '{}' and exception = '{}'",

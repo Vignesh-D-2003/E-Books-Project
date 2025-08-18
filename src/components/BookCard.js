@@ -39,30 +39,30 @@ export function BookCard({ book, isAdmin, viewMode = "grid" }) {
         let fetchUrl = book.file_url;
         
      // Ensure we always fetch directly without proxy
-if (fetchUrl.includes('/uploads/')) {
-  // Remove any '/proxy' part if present
-  fetchUrl = fetchUrl.replace('/proxy', '');
+        if (fetchUrl.includes('/uploads/')) {
+          // Remove any '/proxy' part if present
+          fetchUrl = fetchUrl.replace('/proxy', '');
 
-  // Extract filename after /uploads/
-  const filename = fetchUrl.split('/uploads/')[1];
-  fetchUrl = `http://localhost:8080/uploads/${filename}`;
-}
+          // Extract filename after /uploads/
+          // const filename = fetchUrl.split('/uploads/')[1];
+          // fetchUrl = `http://localhost:8080/uploads/${filename}`;
+        }
 
-console.log('Fetching PDF from:', fetchUrl);
+        console.log('Fetching PDF from:', fetchUrl);
 
-// Fetch the PDF
-let response = await fetch(fetchUrl, {
-  method: 'GET',
-  // Uncomment if you need authentication
-  // headers: {
-  //   'Authorization': `Bearer ${token}`,
-  // },
-});
+        // Fetch the PDF
+        let response = await fetch(fetchUrl, {
+          method: 'GET',
+          // Uncomment if you need authentication
+          // headers: {
+          //   'Authorization': `Bearer ${token}`,
+          // },
+        });
 
-// Check response
-if (!response.ok) {
-  throw new Error(`Failed to fetch PDF: ${response.statusText}`);
-}
+        // Check response
+        if (!response.ok) {
+          throw new Error(`Failed to fetch PDF: ${response.statusText}`);
+        }
 
 
         if (!response.ok) {
@@ -87,7 +87,7 @@ if (!response.ok) {
         
       } catch (error) {
         console.error("Error opening book:", error);
-        alert("Unable to open the book. Please try again.");
+        // alert("Unable to open the book. Please try again.");
       } finally {
         setIsReading(false);
       }

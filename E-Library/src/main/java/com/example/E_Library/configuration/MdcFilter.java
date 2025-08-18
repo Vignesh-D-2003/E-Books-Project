@@ -22,17 +22,17 @@ public class MdcFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Try to get the authenticated user from Spring Security's context
+        
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Check if a user is present, authenticated, and is a type we can use
+        
         if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-            // Put the user's principal name (usually username or email) into the MDC.
+            
             MDC.put("userId", userDetails.getUsername());
 
-            // Get all authorities/roles, remove the "ROLE_" prefix for cleaner logs, and join them.
+            
             String roles = userDetails.getAuthorities().stream()
                     .map(grantedAuthority -> grantedAuthority.getAuthority().replace("ROLE_", ""))
                     .collect(Collectors.joining(","));
@@ -44,8 +44,7 @@ public class MdcFilter extends OncePerRequestFilter {
             // Continue processing the request
             filterChain.doFilter(request, response);
         } finally {
-            // CRITICAL: Always clear the MDC after the request is finished
-            // to ensure the user data doesn't leak into another request's logs.
+           
             MDC.clear();
         }
     }

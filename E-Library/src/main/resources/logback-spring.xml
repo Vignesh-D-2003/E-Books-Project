@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- This file contains Spring's default appenders (like CONSOLE and FILE) -->
+  
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <!--
-    This section defines our logging rules.
-    We tell the application to use the CONSOLE and FILE appenders
-    that were already defined in Spring's base.xml file.
-    -->
-
-    <!-- Rule 1: The default logger for the entire application is INFO level -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>
 
-    <!-- Rule 2: For our own application code, we want more detailed DEBUG level logging -->
     <logger name="com.example.E_Library" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
