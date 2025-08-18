@@ -1,5 +1,4 @@
-# Live App
-Link for live application deployed on Vercel- https://e-books-project-vuxw.vercel.app/
+# E-Books Project
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
