@@ -1,7 +1,7 @@
 package com.example.E_Library.configuration;
 
 import java.io.IOException;
-
+import com.example.E_Library.exceptions.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,10 +42,10 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 
             try {
                 userName = jwtUtil.getUserNameFromToken(jwtToken);
-            } catch (IllegalArgumentException e) {
+            } catch (InvalidJwtException e) {
                 System.out.println("Unable to get the jwtToken");
-            } catch (ExpiredJwtException e) {
-                System.out.println("JwtToken is Expired");
+            } catch (JwtTokenExpiredException e) {
+                throw new JwtTokenExpiredException("Jwt Token Expired");
             }
         }
 
