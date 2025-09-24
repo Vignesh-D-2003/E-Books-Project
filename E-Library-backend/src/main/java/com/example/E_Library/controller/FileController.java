@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/uploads")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4000", allowCredentials = "true")
 public class FileController {
 
     private final Path uploadDir = Paths.get(new File(".").getAbsolutePath(), "uploads");

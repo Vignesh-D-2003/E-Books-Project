@@ -16,7 +16,7 @@ public class AppCorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         // Explicit frontend origin
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOrigins(List.of("http://localhost:4000"));
         // Allow all headers & expose Authorization for clients if needed
         config.addAllowedHeader("*");
         config.addExposedHeader("Authorization");

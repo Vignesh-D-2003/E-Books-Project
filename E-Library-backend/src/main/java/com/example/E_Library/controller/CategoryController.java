@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/categories")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4000", allowCredentials = "true")
 public class CategoryController {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);

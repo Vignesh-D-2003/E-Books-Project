@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/books")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4000", allowCredentials = "true")
 public class BookController {
 
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
