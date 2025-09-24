@@ -63,7 +63,7 @@ public class WebSecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/users/register", "/users/login").permitAll()
                 .requestMatchers("/books", "/books/**").permitAll() // temporarily open
-                .requestMatchers("/uploads/**").permitAll()         // 👈 allow public access to files
+                .requestMatchers("/uploads/**","/actuator/prometheus/**").permitAll()         // 👈 allow public access to files
                 .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
             )
