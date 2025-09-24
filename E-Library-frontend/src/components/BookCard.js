@@ -13,12 +13,14 @@ import {
   Calendar,
   User,
   FileText,
-  Loader2
+  Loader2,
+  Download
 } from "lucide-react";
 
 export function BookCard({ book, isAdmin, viewMode = "grid" }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isReading, setIsReading] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
   const imageUrl = "/book.svg";
@@ -93,6 +95,50 @@ export function BookCard({ book, isAdmin, viewMode = "grid" }) {
       }
     } else {
       alert("No PDF file available for this book.");
+    }
+  };
+
+  const handleDownloadBook = async () => {
+    if (!book.file_url) {
+      alert("No PDF file available for this book.");
+      return;
+    }
+
+    try {
+      setIsDownloading(true);
+
+      let fetchUrl = book.file_url;
+      if (fetchUrl.includes('/uploads/')) {
+        fetchUrl = fetchUrl.replace('/proxy', '');
+      }
+
+      const response = await fetch(fetchUrl, { method: 'GET' });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      const fileNameFromUrl = fetchUrl.split('/').pop() || 'book.pdf';
+      const safeTitle = (book.title || 'book').replace(/[^a-z0-9-_\.]/gi, '_');
+      const finalName = fileNameFromUrl.endsWith('.pdf') ? fileNameFromUrl : `${safeTitle}.pdf`;
+      anchor.download = finalName;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+      }, 1000);
+    } catch (error) {
+      console.error('Error downloading book:', error);
+      // alert('Unable to download the book. Please try again.');
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -175,6 +221,16 @@ export function BookCard({ book, isAdmin, viewMode = "grid" }) {
                     {isReading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
                     {isReading ? "Loading..." : (book.file_url ? "Read" : "No PDF")}
                   </Button>
+                  <Button
+                    onClick={handleDownloadBook}
+                    disabled={!book.file_url || isDownloading}
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-2"
+                  >
+                    {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                    {isDownloading ? "Downloading..." : "Download"}
+                  </Button>
                   
                   {isAdmin && (
                     <>
@@ -245,6 +301,15 @@ export function BookCard({ book, isAdmin, viewMode = "grid" }) {
           >
             {isReading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
             {isReading ? "Loading..." : (book.file_url ? "Read Book" : "No PDF Available")}
+          </Button>
+          <Button
+            onClick={handleDownloadBook}
+            disabled={!book.file_url || isDownloading}
+            variant="outline"
+            className="w-full flex items-center justify-center gap-2 bg-white/50 hover:bg-white/80 transition-all duration-200"
+          >
+            {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+            {isDownloading ? "Downloading..." : "Download PDF"}
           </Button>
           
           {isAdmin && (
